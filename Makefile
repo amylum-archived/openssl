@@ -45,7 +45,7 @@ build: submodule deps
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(ZLIB_DIR)' ./Configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
-	cp $(BUILD_DIR)/COPYING* $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/
+	cp $(BUILD_DIR)/LICENSE $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/
 	cd $(RELEASE_DIR) && tar -czvf $(RELEASE_FILE) *
 
 version:
