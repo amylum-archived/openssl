@@ -42,7 +42,7 @@ build: submodule deps
 	cp -R upstream $(BUILD_DIR)
 	patch -p0 -d $(BUILD_DIR) < patches/no-rpath.patch
 	patch -p0 -d $(BUILD_DIR) < patches/ca-dir.patch
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./Configure $(PATH_FLAGS) $(CONF_FLAGS) $(ZLIB_PATH)
+	cd $(BUILD_DIR) && CC=musl-gcc ./Configure $(PATH_FLAGS) $(CONF_FLAGS) $(ZLIB_PATH) $(CFLAGS)
 	cd $(BUILD_DIR) && make INSTALL_PREFIX=$(RELEASE_DIR) MANDIR=/usr/share/man MANSUFFIX=ssl install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/LICENSE $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/
