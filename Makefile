@@ -43,7 +43,7 @@ build: submodule deps
 	patch -p0 -d $(BUILD_DIR) < patches/no-rpath.patch
 	patch -p0 -d $(BUILD_DIR) < patches/ca-dir.patch
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./Configure $(PATH_FLAGS) $(CONF_FLAGS) $(ZLIB_PATH)
-	cd $(BUILD_DIR) && INSTALL_PREFIX=$(RELEASE_DIR) MANDIR=/usr/share/man make install
+	cd $(BUILD_DIR) && make INSTALL_PREFIX=$(RELEASE_DIR) MANDIR=/usr/share/man install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/LICENSE $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/
 	cd $(RELEASE_DIR) && tar -czvf $(RELEASE_FILE) *
