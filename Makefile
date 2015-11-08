@@ -4,7 +4,7 @@ ORG = amylum
 BUILD_DIR = /tmp/$(PACKAGE)-build
 RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --libdir=$(RELEASE_DIR)/usr/lib
+PATH_FLAGS = --prefix=/usr --libdir=lib
 CONF_FLAGS = --openssldir=/etc/ssl enable-ec_nistp_64_gcc_128 zlib linux-x86_64 -Wa,--noexecstack
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 
@@ -43,7 +43,7 @@ build: submodule deps
 	patch -p0 -d $(BUILD_DIR) < patches/no-rpath.patch
 	patch -p0 -d $(BUILD_DIR) < patches/ca-dir.patch
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./Configure $(PATH_FLAGS) $(CONF_FLAGS) $(ZLIB_PATH)
-	cd $(BUILD_DIR) && make install
+	cd $(BUILD_DIR) && INSTALL_PREFIX=$(RELEASE_DIR) MANDIR=/usr/share/man make install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/LICENSE $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/
 	cd $(RELEASE_DIR) && tar -czvf $(RELEASE_FILE) *
