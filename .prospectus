@@ -10,4 +10,21 @@ item do
     git_tag
     regex /^(.*)-\d+$/
   end
+
+  deps do
+    item do
+      name 'zlib'
+
+      expected do
+        github_release
+        repo "amylum/zlib"
+      end
+
+      actual do
+        grep
+        file 'Makefile'
+        regex /^ZLIB_VERSION = ([\d.-]+)$/
+      end
+    end
+  end
 end
