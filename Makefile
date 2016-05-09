@@ -6,7 +6,7 @@ RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 PATH_FLAGS = --prefix=/usr --libdir=lib
 CONF_FLAGS = --openssldir=/etc/ssl enable-ec_nistp_64_gcc_128 zlib linux-x86_64 -Wa,--noexecstack
-CFLAGS = -static -static-libgcc -Wl,-static -lc -fPIC
+CFLAGS = -fPIC
 
 PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/OpenSSL_//;s/_/./g')
 PATCH_VERSION = $$(cat version)
