@@ -1,0 +1,28 @@
+name 'openssl'
+org 'amylum'
+
+deps(
+  zlib: '1.2.8-4'
+)
+
+configure_flags(
+  prefix: '/usr',
+  libdir: 'lib',
+  openssldir: '/etc/ssl'
+)
+
+cflags
+cflags ['-Wa,--noexecstack']
+harden
+
+patch 'no-rpath.patch'
+patch 'ca-dir.patch'
+
+build do
+  run './Configure #{configure_flag_strings.join(' ')} enable-ec_nistp_64_gcc_128 zlib linux-x86_64 #{@forge.cflags.join(' ')}', default_env
+  run "make INSTALL_PREFIX=#{releasedir} MANDIR=/usr/share/man MANSUFFIX=ssl install"
+end
+
+test do
+  # TODO: add tests
+end

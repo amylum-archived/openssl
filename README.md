@@ -1,6 +1,8 @@
 openssl
 ==========
 
+[![Build Status](https://img.shields.io/circleci/project/amylum/openssl/master.svg)](https://circleci.com/gh/amylum/openssl)
+[![GitHub release](https://img.shields.io/github/release/amylum/openssl.svg)](https://github.com/amylum/openssl/releases)
 [![OpenSSL Licensed](http://img.shields.io/badge/license-OpenSSL-green.svg)](https://tldrlegal.com/license/openssl-license-(openssl))
 
 Package repo for [openssl](http://openssl.org/)
