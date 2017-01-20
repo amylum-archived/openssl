@@ -2,7 +2,7 @@ name 'openssl'
 org 'amylum'
 
 deps(
-  zlib: '1.2.10-1'
+  zlib: '1.2.11-1'
 )
 
 configure_flags(
