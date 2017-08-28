@@ -2,7 +2,10 @@ name 'openssl'
 org 'amylum'
 
 deps(
-  zlib: '1.2.11-1'
+  zlib: {
+    version: '1.2.11-1',
+    checksum: '5596e2d39ef98e2323ac415f50afa71a433ed65c23e8d1f2723f711f5ffb4f32'
+  }
 )
 
 configure_flags(
