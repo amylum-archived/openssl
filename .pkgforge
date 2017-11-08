@@ -8,11 +8,14 @@ deps(
   }
 )
 
+
 configure_flags(
   prefix: '/usr',
   libdir: 'lib',
   openssldir: '/etc/ssl'
 )
+remove_linker_archives
+remove_pkgconfig_files
 
 cflags
 cflags ['-Wa,--noexecstack']
@@ -20,12 +23,13 @@ harden
 
 patch 'no-rpath.patch'
 patch 'ca-dir.patch'
+patch 'ld_library_path.patch'
 
 build do
   run "./Configure #{configure_flag_strings.join(' ')} enable-ec_nistp_64_gcc_128 linux-x86_64 #{@forge.cflags.join(' ')}", default_env
-  run "make INSTALL_PREFIX=#{releasedir} MANDIR=/usr/share/man MANSUFFIX=ssl install"
+  run "make INSTALL_PREFIX=#{releasedir} MANDIR=/usr/share/man MANSUFFIX=ssl install", 'DEBUG' => '1'
 end
 
 test do
-  # TODO: add tests
+  run 'openssl --version'
 end
