@@ -1,20 +1,28 @@
 diff --git a/Makefile.shared b/Makefile.shared
-index e8d222ac6a..0827c3a04c 100644
+index 4f9550aaf1..2259c5e42d 100644
 --- a/Makefile.shared
 +++ b/Makefile.shared
-@@ -95,7 +95,6 @@ LINK_APP=	\
-     LDCMD="$${LDCMD:-$(CC)}"; LDFLAGS="$${LDFLAGS:-$(CFLAGS)}"; \
+@@ -102,9 +102,8 @@ LINK_APP=	\
+     LDCMD="$${LDCMD:-$(CC)}"; LDFLAGS="$${LDFLAGS:-$(CFLAGS) $(LDFLAGS)}"; \
      LIBPATH=`for x in $$LIBDEPS; do echo $$x; done | sed -e 's/^ *-L//;t' -e d | uniq`; \
      LIBPATH=`echo $$LIBPATH | sed -e 's/ /:/g'`; \
+-    echo LD_LIBRARY_PATH=$$LIBPATH:$$LD_LIBRARY_PATH \
++	echo \
+         $${LDCMD} $${LDFLAGS} -o $${APPNAME:=$(APPNAME)} $(OBJECTS) $${LIBDEPS}; \
 -    LD_LIBRARY_PATH=$$LIBPATH:$$LD_LIBRARY_PATH \
      $${LDCMD} $${LDFLAGS} -o $${APPNAME:=$(APPNAME)} $(OBJECTS) $${LIBDEPS} )
  
  LINK_SO=	\
-@@ -105,7 +104,6 @@ LINK_SO=	\
+@@ -114,11 +113,10 @@ LINK_SO=	\
      SHAREDFLAGS="$${SHAREDFLAGS:-$(CFLAGS) $(SHARED_LDFLAGS)}"; \
      LIBPATH=`for x in $$LIBDEPS; do echo $$x; done | sed -e 's/^ *-L//;t' -e d | uniq`; \
      LIBPATH=`echo $$LIBPATH | sed -e 's/ /:/g'`; \
+-    echo LD_LIBRARY_PATH=$$LIBPATH:$$LD_LIBRARY_PATH \
++    echo \
+          $${SHAREDCMD} $${SHAREDFLAGS} \
+ 	     -o $(SHLIBNAME_FULL) \
+ 	     $$ALLSYMSFLAGS $$SHOBJECTS $$NOALLSYMSFLAGS $$LIBDEPS; \
 -    LD_LIBRARY_PATH=$$LIBPATH:$$LD_LIBRARY_PATH \
      $${SHAREDCMD} $${SHAREDFLAGS} \
- 	-o $$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX \
+ 	-o $(SHLIBNAME_FULL) \
  	$$ALLSYMSFLAGS $$SHOBJECTS $$NOALLSYMSFLAGS $$LIBDEPS \
