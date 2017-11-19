@@ -5,6 +5,10 @@ deps(
   zlib: {
     version: '1.2.11-1',
     checksum: '5596e2d39ef98e2323ac415f50afa71a433ed65c23e8d1f2723f711f5ffb4f32'
+  },
+  'linux-api-headers': {
+    version: '4.14-1',
+    checksum: '106c40ebd4826cf8fda5235cb9619e37d79efea6e64545d64bb78d4a829f29a6'
   }
 )
 
@@ -22,14 +26,15 @@ cflags ['-Wa,--noexecstack']
 harden
 
 #patch 'no-rpath.patch'
-#patch 'ca-dir.patch'
+patch 'ca-dir.patch'
 patch 'ld_library_path.patch'
 
 build do
-  run "./Configure #{configure_flag_strings.join(' ')} enable-ec_nistp_64_gcc_128 linux-x86_64 #{@forge.cflags.join(' ')}", default_env
-  run "make INSTALL_PREFIX=#{releasedir} MANDIR=/usr/share/man MANSUFFIX=ssl install", 'DEBUG' => '1'
+  env = default_env.merge('PATH' => "/usr/bin/core_perl:#{ENV['PATH']}")
+  run "./Configure #{configure_flag_strings.join(' ')} no-async enable-ec_nistp_64_gcc_128 linux-x86_64 #{@forge.cflags.join(' ')}", env
+  run "make DESTDIR=#{releasedir} MANDIR=/usr/share/man MANSUFFIX=ssl install", env
 end
 
 test do
-  run 'openssl --version'
+  run 'openssl version'
 end
