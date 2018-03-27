@@ -6,10 +6,10 @@ my_slug = pkgforge.org + '/' + pkgforge.name
 
 item do
   expected do
-    url_xpath
-    url 'https://www.openssl.org/source/'
-    xpath '//*[@id="content"]/div/article/div/table/tr[4]/td[3]/a[1]'
-    regex /^openssl-([\w.]+).tar.gz$/
+    github_tag
+    repo 'openssl/openssl'
+    regex /^OpenSSL_1_1_([\d]+[a-z]+)$/, '1.1.\1'
+    filter /^OpenSSL_1_1_([\d]+[a-z]+)$/
   end
 
   actual do
