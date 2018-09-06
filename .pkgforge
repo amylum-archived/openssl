@@ -3,8 +3,8 @@ org 'amylum'
 
 deps(
   zlib: {
-    version: '1.2.11-1',
-    checksum: '5596e2d39ef98e2323ac415f50afa71a433ed65c23e8d1f2723f711f5ffb4f32'
+    version: '1.2.11-6',
+    checksum: '7da7212123edac6d5d5dc2db8fb10a6af06472578840c51e489e1f391b66c208'
   },
   'linux-api-headers': {
     version: '4.18-1',
