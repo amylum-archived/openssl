@@ -25,9 +25,7 @@ cflags
 cflags ['-Wa,--noexecstack']
 harden
 
-#patch 'no-rpath.patch'
 patch 'ca-dir.patch'
-patch 'ld_library_path.patch'
 
 build do
   env = default_env.merge('PATH' => "/usr/bin/core_perl:#{ENV['PATH']}")
